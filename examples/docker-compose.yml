@@ -1,23 +1,27 @@
 services:
   app:
-    build: .
+    image: ghcr.io/<GITHUB_USERNAME>/<APPLICATION>:latest
+    restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
+    env_file:
+      - .env
     environment:
-      DB_URL: jdbc:postgresql://db:5432/bot_db
-      DB_USERNAME: user
-      DB_PASSWORD: pass
+      SPRING_PROFILES_ACTIVE: prod
+    volumes:
+      - /var/log/<APPLICATION>:/app/logs
     depends_on:
       - db
 
   db:
     image: postgres:16-alpine
-    environment:
-      POSTGRES_DB: bot_db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
+    restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
