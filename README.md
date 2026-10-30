@@ -2,6 +2,17 @@
 
 Пошаговое руководство по настройке CI/CD и развёртыванию Java-приложений на VPS.
 
+## Содержание
+
+1. [Локальная контейнеризация приложения](docs/01-local-docker.md)
+2. [Подготовка VPS](docs/02-vps-setup.md)
+3. [Создание инфраструктурного репозитория](docs/03-infra-repository.md)
+4. [Первоначальное развёртывание на VPS](docs/04-first-deploy.md)
+5. [Настройка GitHub Actions CI](docs/05-github-actions-ci.md)
+6. [Настройка GitHub Actions CD](docs/06-github-actions-cd.md)
+7. [Настройка nginx и HTTPS](docs/07-nginx-https.md)
+8. [Проверка CI/CD и развёртывания](docs/08-verification.md)
+
 ## Технологический стек
 
 - Java 21, Spring Boot, Maven
@@ -14,7 +25,7 @@
 - Let's Encrypt (Certbot)
 
 ## Архитектура CI/CD
-```yaml
+```text
 Developer
     |
     | git push origin master
@@ -76,19 +87,6 @@ GitHub Container Registry (GHCR)
 Содержит `docker-compose.yml`, `deploy.sh` и шаблон переменных окружения `.env.example`.
 
 На VPS клонируется только infrastructure repository.
-
-## Порядок развёртывания
-
-| Этап                         | Документация      |
-| ---------------------------- | ----------------- |
-| 1. Локальная контейнеризация | Local Docker      |
-| 2. Подготовка VPS            | VPS Setup         |
-| 3. Подготовка инфраструктуры | Infra Repository  |
-| 4. Первоначальный деплой     | First Deploy      |
-| 5. Настройка CI              | GitHub Actions CI |
-| 6. Настройка CD              | GitHub Actions CD |
-| 7. Настройка HTTPS           | nginx & HTTPS     |
-| 8. Проверка развёртывания    | Verification      |
 
 ## Примеры конфигураций
 
