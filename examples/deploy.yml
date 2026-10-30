@@ -28,3 +28,14 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/<GITHUB_USERNAME>/<APPLICATION>:latest
+
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /opt/<APPLICATION>-infra
+            git pull origin main
+            ./deploy.sh
